@@ -1,5 +1,7 @@
 # 🎯 Job Tracker
 
+[![CI](https://github.com/PaddyConnolly/job-tracker/actions/workflows/ci.yml/badge.svg)](https://github.com/PaddyConnolly/job-tracker/actions/workflows/ci.yml)
+
 A self-hosted application that tracks job listings across company career pages using LLM-powered selector extraction.
 
 ## 🚀 Setup

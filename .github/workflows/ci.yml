@@ -1,0 +1,37 @@
+name: CI
+
+# When to run this workflow
+on:
+  push:
+    branches: [main]       # Run on pushes to main
+  pull_request:
+    branches: [main]       # Run on PRs targeting main
+
+jobs:
+  # Linting and formatting checks
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4          # Clone the repo
+      - uses: astral-sh/setup-uv@v4        # Install uv
+      - run: uv sync                       # Install dependencies
+      - run: uv run ruff check .           # Check for lint errors
+      - run: uv run ruff format --check .  # Check formatting (no changes)
+
+  # Static type checking
+  type-check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v4
+      - run: uv sync
+      - run: uv run mypy src               # Type check the source code
+
+  # Run test suite
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v4
+      - run: uv sync
+      - run: uv run pytest                 # Run all tests
